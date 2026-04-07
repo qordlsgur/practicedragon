@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [System.Serializable] private struct AttackColliderOffset
+    [System.Serializable]
+    private struct AttackColliderOffset
     {
-        public Vector2 AttackCollideroffset;
+        public float AttackoffsetX;
+        public float AttackoffsetY;
         public Vector2 NewAttackCollideroffset;
     }
 
@@ -17,6 +19,7 @@ public class Player : MonoBehaviour
 
     private BoxCollider2D[] attackCollider;
     [SerializeField] private AttackColliderOffset AttackOffset;
+    private bool Attack = false;
 
 
     [SerializeField] private Vector2 MoveInput;
@@ -29,7 +32,6 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         attackCollider = GetComponents<BoxCollider2D>();
-        AttackOffset.AttackCollideroffset = attackCollider[0].offset;
     }
 
     private void Start()
@@ -44,11 +46,23 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        PlayerAttack();
+        PlayerMove();
+    }
+
+    private void LateUpdate()
+    {
+    }
+
+    private void PlayerMove()
+    {
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
 
         MoveInput = new Vector2(x, y);
-        Movedelta = MoveInput.normalized * moveSpeed * Time.deltaTime;
+
+        if (!Attack)
+            Movedelta = MoveInput.normalized * moveSpeed * Time.deltaTime;
 
         if (x != 0 || y != 0)
             MoveAnim = true;
@@ -58,24 +72,32 @@ public class Player : MonoBehaviour
 
         if (MoveInput.x < 0)
         {
-            // ¿ÞÂÊ
             spriteRenderer.flipX = true;
         }
         else if (MoveInput.x > 0)
         {
-            // ¿À¸¥ÂÊ
             spriteRenderer.flipX = false;
         }
 
-        AttackOffset.NewAttackCollideroffset.x = spriteRenderer.flipX ? -AttackOffset.AttackCollideroffset.x : AttackOffset.AttackCollideroffset.x;
+        AttackOffset.AttackoffsetX = attackCollider[0].offset.x;
+        AttackOffset.AttackoffsetY = attackCollider[0].offset.y;
+        AttackOffset.NewAttackCollideroffset.x = spriteRenderer.flipX ? -AttackOffset.AttackoffsetX : AttackOffset.AttackoffsetX;
+        AttackOffset.NewAttackCollideroffset.y = AttackOffset.AttackoffsetY;
         attackCollider[0].offset = AttackOffset.NewAttackCollideroffset;
 
         anim.SetBool("Run", MoveAnim);
-
-
     }
 
-    private void LateUpdate()
+    private void PlayerAttack()
     {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            Debug.Log("Z");
+            Attack = true;
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+            Debug.Log("X");
+        if (Input.GetKeyDown(KeyCode.C))
+            Debug.Log("C");
     }
 }
