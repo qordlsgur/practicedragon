@@ -12,10 +12,7 @@ public class PlayerIdleState : State<Player>
 
     public override void Enter()
     {
-        owner.anim.SetBool("Run", false);
-        owner.anim.SetBool("Jump", false);
-        owner.anim.SetBool("Fall", false);
-        owner.IsJump = false;
+        owner.IdleEnter();
     }
 
     public override void FSMFixedUpdate()
@@ -23,26 +20,20 @@ public class PlayerIdleState : State<Player>
         float x = Input.GetAxisRaw("Horizontal");
 
         if (x == 0)
-        {
-            owner.rb.linearVelocity = new Vector2(0, owner.rb.linearVelocity.y);
-        }
+            owner.Stop();
     }
 
     public override void FSMUpdate()
     {
         float x = Input.GetAxisRaw("Horizontal");
 
-        if (x < 0)
-            owner.spriteRenderer.flipX = true;
-        else if (x > 0)
-            owner.spriteRenderer.flipX = false;
+        owner.PlayerFlip(x);
 
-        if (x != 0)
-            fsm.ChangeState(owner.run);
+        if (x != 0 && !owner.IsAttackinh)
+            fsm.ChangeState(owner.RunState);
 
-        if (!owner.IsJump && owner.rb.linearVelocity.y < 0)
-            fsm.ChangeState(owner.fall);
-
+        if (!owner.IsJumpping && owner.IsFalling)
+            fsm.ChangeState(owner.FallState);
 
     }
 
