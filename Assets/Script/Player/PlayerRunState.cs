@@ -10,7 +10,7 @@ public class PlayerRunState : State<Player>
 
     public override void Enter()
     {
-        owner.anim.SetBool("Run", true);
+        owner.RunEnter();
     }
 
     public override void FSMFixedUpdate()
@@ -18,28 +18,22 @@ public class PlayerRunState : State<Player>
         float x = Input.GetAxisRaw("Horizontal");
 
         if (x == 0)
-        {
-            owner.rb.linearVelocity = new Vector2(0, owner.rb.linearVelocity.y);
-        }
+            owner.Stop();
         else
-        {
-            owner.rb.linearVelocity = new Vector2(x * owner.moveSpeed, owner.rb.linearVelocity.y);
-        }
+            owner.Move(x);
     }
 
     public override void FSMUpdate()
     {
         float x = Input.GetAxisRaw("Horizontal");
 
-        if (x < 0)
-            owner.spriteRenderer.flipX = true;
-        else if (x > 0)
-            owner.spriteRenderer.flipX = false;
+        owner.PlayerFlip(x);
 
         if (x == 0)
-        {
-            fsm.ChangeState(owner.idle);
-        }
+            fsm.ChangeState(owner.IdleState);
+
+        if (owner.IsFalling)
+            fsm.ChangeState(owner.FallState);
     }
 
     public override void Exit()

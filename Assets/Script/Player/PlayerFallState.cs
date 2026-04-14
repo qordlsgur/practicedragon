@@ -8,7 +8,7 @@ public class PlayerFallState : State<Player>
 
     public override void Enter()
     {
-        owner.anim.SetBool("Fall", true);
+        owner.FallEnter();
     }
 
     public override void FSMFixedUpdate()
@@ -20,21 +20,13 @@ public class PlayerFallState : State<Player>
     {
         float x = Input.GetAxisRaw("Horizontal");
 
-        // 공중에서도 좌우 이동
-        Vector2 move = new Vector2(x * owner.moveSpeed, owner.rb.linearVelocity.y);
-        owner.rb.linearVelocity = move;
+        owner.Move(x);
 
-        // 방향
-        if (x < 0)
-            owner.spriteRenderer.flipX = true;
-        else if (x > 0)
-            owner.spriteRenderer.flipX = false;
+        owner.PlayerFlip(x);
 
-        // 착지 체크
-        if (owner.rb.linearVelocity.y <= 0 && owner.IsGround())
-        {
-            fsm.ChangeState(owner.idle);
-        }
+        if (owner.IsFalling && owner.IsGround())
+            fsm.ChangeState(owner.IdleState);
+
     }
 
     public override void Exit()

@@ -8,7 +8,10 @@ public class PlayerAttackState : State<Player>
 
     public override void Enter()
     {
+        owner.NormalAttack1();
 
+        if (!owner.IsJumpping)
+            owner.Stop();
     }
 
     public override void FSMFixedUpdate()

@@ -1,32 +1,45 @@
+using NUnit.Framework;
 using UnityEngine;
+using System.Collections.Generic;
+using UnityEditor.Rendering.Universal;
 
 public class Player : MonoBehaviour
 {
-    public FSM<Player> fsm;
-    public PlayerIdleState idle;
-    public PlayerRunState run;
-    public PlayerAttackState attack;
-    public PlayerJumpState jump;
-    public PlayerFallState fall;
+    private FSM<Player> fsm;
+    public PlayerIdleState IdleState => idle;
+    private PlayerIdleState idle;
+    public PlayerRunState RunState => run;
+    private PlayerRunState run;
+    public PlayerAttackState AttackState => attack;
+    private PlayerAttackState attack;
+    public PlayerJumpState JumpState => jump;
+    private PlayerJumpState jump;
+    public PlayerFallState FallState => fall;
+    private PlayerFallState fall;
 
-    public struct AttackColliderOffset
+    [SerializeField] private List<BoxCollider2D> ChildCollider;
+
+    private struct AttackColliderOffset
     {
-        public float AttackoffsetX;
-        public float AttackoffsetY;
-        public Vector2 NewAttackCollideroffset;
+        private float AttackoffsetX;
+        private float AttackoffsetY;
+        private Vector2 NewAttackCollideroffset;
     }
 
-    public float moveSpeed = 10f;
-    public float jumpForce = 5f;
+    private float moveSpeed = 10f;
+    private float jumpForce = 5f;
+    private Rigidbody2D rb;
+    private Animator anim;
+    private SpriteRenderer spriteRenderer;
+    private BoxCollider2D[] attackCollider;
 
-    public Rigidbody2D rb;
-    public Animator anim;
-    public SpriteRenderer spriteRenderer;
+    public bool IsAttackinh => IsAttack;
+    private bool IsAttack = false;
 
-    public BoxCollider2D[] attackCollider;
-    [SerializeField] public AttackColliderOffset AttackOffset;
-    public bool Attack = false;
-    public bool IsJump = false;
+    public bool IsJumpping => IsJump;
+    private bool IsJump = false;
+
+    public bool IsFalling => rb.linearVelocity.y < -0.1f;
 
     private void Awake()
     {
@@ -48,6 +61,8 @@ public class Player : MonoBehaviour
     private void Start()
     {
         fsm.ChangeState(idle);
+        foreach (var child in ChildCollider)
+            child.enabled = false;
     }
 
     private void FixedUpdate()
@@ -63,7 +78,6 @@ public class Player : MonoBehaviour
 
         if (IsJump)
             IsGround();
-
     }
 
     private void LateUpdate()
@@ -84,13 +98,84 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
         }
+
         if (Input.GetKeyDown(KeyCode.X))
-        {
             fsm.ChangeState(attack);
-        }
+
         if (Input.GetKeyDown(KeyCode.C) && !IsJump)
-        {
             fsm.ChangeState(jump);
+    }
+
+    public void Move(float x)
+    {
+        rb.linearVelocity = new Vector2(x * moveSpeed, rb.linearVelocity.y);
+    }
+
+    public void Jump()
+    {
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+    }
+
+    public void Stop()
+    {
+        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+    }
+
+    public void PlayerFlip(float x)
+    {
+        if (x < 0)
+            spriteRenderer.flipX = true;
+        else if (x > 0)
+            spriteRenderer.flipX = false;
+    }
+
+    public void IdleEnter()
+    {
+        anim.SetBool("Run", false);
+        anim.SetBool("Jump", false);
+        anim.SetBool("Fall", false);
+        IsJump = false;
+    }
+
+    public void RunEnter()
+    {
+        anim.SetBool("Run", true);
+    }
+
+    public void JumpEnter()
+    {
+        anim.SetBool("Jump", true);
+        IsJump = true;
+    }
+
+    public void FallEnter()
+    {
+        anim.SetBool("Fall", true);
+
+        if(IsJump)
+        {
+            anim.SetBool("Jump", false);
+            IsJump = false;
         }
     }
+
+    public void NormalAttack1()
+    {
+        anim.SetBool("Attack1", true);
+        IsAttack = true;
+    }
+
+    public void AttackCollider()
+    {
+        ChildCollider[0].enabled = true;
+    }
+
+    public void NormalAttack1End()
+    {
+        fsm.ChangeState(IdleState);
+        anim.SetBool("Attack1", false);
+        IsAttack = false;
+        ChildCollider[0].enabled = false;
+    }
+
 }
