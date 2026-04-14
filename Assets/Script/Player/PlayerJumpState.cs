@@ -38,4 +38,9 @@ public class PlayerJumpState : State<Player>
     {
 
     }
+
+    public override void OnAttackInput()
+    {
+        fsm.ChangeState(owner.AttackState);
+    }
 }

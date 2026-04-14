@@ -15,5 +15,7 @@ public abstract class State<T>
     public virtual void FSMUpdate() { }
     public virtual void FSMFixedUpdate() { }
     public virtual void Exit() { }
+    public virtual void OnAttackInput() { }
+    public virtual void OnJumpInput() { }
 }
 

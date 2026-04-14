@@ -39,4 +39,14 @@ public class PlayerRunState : State<Player>
     public override void Exit()
     {
     }
+
+    public override void OnAttackInput()
+    {
+        fsm.ChangeState(owner.AttackState);
+    }
+
+    public override void OnJumpInput()
+    {
+        fsm.ChangeState(owner.JumpState);
+    }
 }

@@ -23,6 +23,9 @@ public class FSM<T>
 
     public void Init(State<T> startState)
     {
+        if (startState == null)
+            return;
+
         currentState = startState;
 
         currentState.Enter();

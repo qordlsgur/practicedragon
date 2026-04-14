@@ -6,6 +6,9 @@ using UnityEditor.Rendering.Universal;
 public class Player : MonoBehaviour
 {
     private FSM<Player> fsm;
+
+    private State<Player> currentState;
+
     public PlayerIdleState IdleState => idle;
     private PlayerIdleState idle;
     public PlayerRunState RunState => run;
@@ -39,6 +42,8 @@ public class Player : MonoBehaviour
     public bool IsJumpping => IsJump;
     private bool IsJump = false;
 
+    public bool IsGrounding => IsGround;
+    private bool IsGround = false;
     public bool IsFalling => rb.linearVelocity.y < -0.1f;
 
     private void Awake()
@@ -60,15 +65,15 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        fsm.ChangeState(idle);
+        fsm.Init(idle);
         foreach (var child in ChildCollider)
             child.enabled = false;
     }
 
     private void FixedUpdate()
     {
+        ChakGround();
         fsm.fixedUpdate();
-
     }
 
     private void Update()
@@ -76,21 +81,20 @@ public class Player : MonoBehaviour
         PlayerAttack();
         fsm.Update();
 
-        if (IsJump)
-            IsGround();
+        Debug.DrawRay(transform.position, Vector2.down, Color.red, 1.4f);
     }
 
     private void LateUpdate()
     {
     }
 
-    public bool IsGround()
+    public void ChakGround()
     {
         RaycastHit2D hit = Physics2D.Raycast(
             transform.position, Vector2.down,
-            1.1f, LayerMask.GetMask("Ground"));
+            1.4f, LayerMask.GetMask("Ground"));
 
-        return hit.collider != null;
+        IsGround = hit.collider != null;
     }
 
     private void PlayerAttack()
@@ -100,10 +104,10 @@ public class Player : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.X))
-            fsm.ChangeState(attack);
+            fsm.CurrentState.OnAttackInput();
 
-        if (Input.GetKeyDown(KeyCode.C) && !IsJump)
-            fsm.ChangeState(jump);
+        if (Input.GetKeyDown(KeyCode.C) && !IsJump && !IsFalling)
+            fsm.CurrentState.OnJumpInput();
     }
 
     public void Move(float x)
@@ -152,7 +156,7 @@ public class Player : MonoBehaviour
     {
         anim.SetBool("Fall", true);
 
-        if(IsJump)
+        if (IsJump)
         {
             anim.SetBool("Jump", false);
             IsJump = false;
@@ -172,7 +176,6 @@ public class Player : MonoBehaviour
 
     public void NormalAttack1End()
     {
-        fsm.ChangeState(IdleState);
         anim.SetBool("Attack1", false);
         IsAttack = false;
         ChildCollider[0].enabled = false;
