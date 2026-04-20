@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlayerJumpState : State<Player>
 {
-    private Vector2 move;
 
     public PlayerJumpState(Player owner, FSM<Player> fsm) : base(owner, fsm)
     {
@@ -27,11 +26,11 @@ public class PlayerJumpState : State<Player>
 
         owner.PlayerFlip(x);
 
-        if (!owner.IsFalling && owner.IsFalling)
-            fsm.ChangeState(owner.FallState);
-
-        if(owner.IsFalling)
+        if (owner.IsGrounding)
             fsm.ChangeState(owner.IdleState);
+
+        if (owner.IsFalling)
+            fsm.ChangeState(owner.FallState);
     }
 
     public override void Exit()
@@ -41,6 +40,12 @@ public class PlayerJumpState : State<Player>
 
     public override void OnAttackInput()
     {
+        fsm.SaveStaet();
         fsm.ChangeState(owner.AttackState);
+    }
+
+    public override void OnJumpInput()
+    {
+
     }
 }

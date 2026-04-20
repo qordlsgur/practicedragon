@@ -24,7 +24,7 @@ public class PlayerFallState : State<Player>
 
         owner.PlayerFlip(x);
 
-        if (owner.IsFalling && owner.IsGrounding)
+        if (owner.IsGrounding)
             fsm.ChangeState(owner.IdleState);
 
     }
@@ -36,11 +36,15 @@ public class PlayerFallState : State<Player>
 
     public override void OnAttackInput()
     {
+        fsm.SaveStaet();
         fsm.ChangeState(owner.AttackState);
     }
 
     public override void OnJumpInput()
     {
+        if (!owner.IsGrounding)
+            return;
+
         fsm.ChangeState(owner.JumpState);
     }
 }

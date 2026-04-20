@@ -7,8 +7,6 @@ public class Player : MonoBehaviour
 {
     private FSM<Player> fsm;
 
-    private State<Player> currentState;
-
     public PlayerIdleState IdleState => idle;
     private PlayerIdleState idle;
     public PlayerRunState RunState => run;
@@ -31,10 +29,14 @@ public class Player : MonoBehaviour
 
     private float moveSpeed = 10f;
     private float jumpForce = 5f;
+    private float jumpTimer;
     private Rigidbody2D rb;
     private Animator anim;
     private SpriteRenderer spriteRenderer;
-    private BoxCollider2D[] attackCollider;
+
+    private LayerMask GroundMask;
+
+    [SerializeField] private List<BoxCollider2D> HitCollider;
 
     public bool IsAttackinh => IsAttack;
     private bool IsAttack = false;
@@ -46,14 +48,16 @@ public class Player : MonoBehaviour
     private bool IsGround = false;
     public bool IsFalling => rb.linearVelocity.y < -0.1f;
 
+    private float rayDistance = 0.1f;
+
     private void Awake()
     {
         moveSpeed = 10f;
         jumpForce = 7.5f;
+        jumpTimer = 0f;
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        attackCollider = GetComponents<BoxCollider2D>();
 
         fsm = new FSM<Player>();
         idle = new PlayerIdleState(this, fsm);
@@ -61,6 +65,7 @@ public class Player : MonoBehaviour
         attack = new PlayerAttackState(this, fsm);
         jump = new PlayerJumpState(this, fsm);
         fall = new PlayerFallState(this, fsm);
+
     }
 
     private void Start()
@@ -68,33 +73,64 @@ public class Player : MonoBehaviour
         fsm.Init(idle);
         foreach (var child in ChildCollider)
             child.enabled = false;
+
+        GroundMask = LayerMask.GetMask("Ground");
     }
 
     private void FixedUpdate()
     {
-        ChakGround();
         fsm.fixedUpdate();
     }
 
     private void Update()
     {
         PlayerAttack();
+        CheckGround();
         fsm.Update();
 
-        Debug.DrawRay(transform.position, Vector2.down, Color.red, 1.4f);
+        if (jumpTimer > 0)
+            jumpTimer -= Time.deltaTime;
     }
 
     private void LateUpdate()
     {
     }
 
-    public void ChakGround()
+    public void CheckGround()
     {
-        RaycastHit2D hit = Physics2D.Raycast(
-            transform.position, Vector2.down,
-            1.4f, LayerMask.GetMask("Ground"));
+        if (rb.linearVelocity.y > 0.1f || jumpTimer > 0f)
+        {
+            IsGround = false;
+            return;
+        }
 
-        IsGround = hit.collider != null;
+        Vector2 center = HitCollider[0].bounds.center;
+        float width = HitCollider[0].bounds.size.x;
+        float height = HitCollider[0].bounds.size.y;
+
+        float offsetX = (width / 2) * 0.8f;
+
+        Vector2 leftFoot = new Vector2(center.x - offsetX, center.y - height / 2);
+        Vector2 centerFoot = new Vector2(center.x, center.y - height / 2);
+        Vector2 rightFoot = new Vector2(center.x + offsetX, center.y - height / 2);
+
+        IsGround = CheckRay(leftFoot) || CheckRay(centerFoot) || CheckRay(rightFoot);
+    }
+
+    private bool CheckRay(Vector2 Ray)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(Ray, Vector2.down, rayDistance, GroundMask);
+
+        if (hit.collider == null)
+            return false;
+
+        if (hit.normal.y <= 0.7f)
+            return false;
+
+        if (hit.distance > 0.03f)
+            return false;
+
+        return true;
     }
 
     private void PlayerAttack()
@@ -106,8 +142,12 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X))
             fsm.CurrentState.OnAttackInput();
 
-        if (Input.GetKeyDown(KeyCode.C) && !IsJump && !IsFalling)
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            jumpTimer = 0.3f;
             fsm.CurrentState.OnJumpInput();
+        }
     }
 
     public void Move(float x)
@@ -117,12 +157,18 @@ public class Player : MonoBehaviour
 
     public void Jump()
     {
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        if (!IsJump)
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
     }
 
     public void Stop()
     {
         rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+    }
+
+    public void JumpStop()
+    {
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
     }
 
     public void PlayerFlip(float x)
@@ -166,6 +212,7 @@ public class Player : MonoBehaviour
     public void NormalAttack1()
     {
         anim.SetBool("Attack1", true);
+        anim.SetBool("Run", false);
         IsAttack = true;
     }
 
@@ -179,6 +226,6 @@ public class Player : MonoBehaviour
         anim.SetBool("Attack1", false);
         IsAttack = false;
         ChildCollider[0].enabled = false;
+        fsm.ReturnState();
     }
-
 }

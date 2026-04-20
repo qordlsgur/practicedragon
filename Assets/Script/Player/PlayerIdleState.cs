@@ -1,3 +1,4 @@
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.Timeline;
 
@@ -43,10 +44,12 @@ public class PlayerIdleState : State<Player>
 
     public override void OnAttackInput()
     {
+        fsm.SaveStaet();
         fsm.ChangeState(owner.AttackState);
     }
     public override void OnJumpInput()
     {
+
         fsm.ChangeState(owner.JumpState);
     }
 }

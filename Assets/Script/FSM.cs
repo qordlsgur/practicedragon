@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 public class FSM<T>
 {
     private State<T> currentState;
-
+    private State<T> saveState;
     public State<T> CurrentState => currentState;
 
     public void ChangeState(State<T> newState)
@@ -19,6 +20,14 @@ public class FSM<T>
         currentState = newState;
 
         currentState.Enter();
+    }
+
+    public void SaveStaet()
+    {
+        if (currentState == null)
+            return;
+
+        saveState = currentState;
     }
 
     public void Init(State<T> startState)
@@ -39,5 +48,23 @@ public class FSM<T>
     public void fixedUpdate()
     {
         currentState?.FSMFixedUpdate();
+    }
+
+    public void ReturnState()
+    {
+        if (saveState == null)
+            return;
+
+        if (currentState == null)
+            return;
+
+        if (currentState == saveState)
+            return;
+
+        saveState?.Exit();
+
+        currentState = saveState;
+
+        currentState.Enter();
     }
 }

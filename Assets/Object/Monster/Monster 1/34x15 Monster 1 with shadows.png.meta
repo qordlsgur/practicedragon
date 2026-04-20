@@ -145,7 +145,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -183,7 +183,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -217,6 +217,32 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -225,11 +251,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 7
-        y: 89
+        y: 90
         width: 17
-        height: 12
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -247,11 +273,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 42
-        y: 89
+        y: 90
         width: 15
-        height: 13
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -269,11 +295,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 77
-        y: 89
+        y: 90
         width: 13
         height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -291,11 +317,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 110
-        y: 89
+        y: 90
         width: 15
         height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -313,11 +339,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 143
-        y: 89
+        y: 90
         width: 17
-        height: 12
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -335,11 +361,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 177
-        y: 89
+        y: 90
         width: 17
-        height: 11
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -357,11 +383,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 7
-        y: 74
+        y: 75
         width: 17
-        height: 12
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -379,11 +405,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 42
-        y: 74
+        y: 75
         width: 15
-        height: 13
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -401,11 +427,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 77
-        y: 74
+        y: 75
         width: 13
         height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -423,11 +449,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 110
-        y: 74
+        y: 75
         width: 15
         height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -445,11 +471,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 143
-        y: 74
+        y: 75
         width: 17
-        height: 12
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -467,11 +493,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 177
-        y: 74
+        y: 75
         width: 17
-        height: 11
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -489,11 +515,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 7
-        y: 59
+        y: 60
         width: 17
-        height: 12
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -511,11 +537,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 42
-        y: 59
+        y: 60
         width: 15
-        height: 13
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -533,11 +559,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 77
-        y: 59
+        y: 60
         width: 13
         height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -555,11 +581,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 110
-        y: 59
+        y: 60
         width: 15
         height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -577,11 +603,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 143
-        y: 59
+        y: 60
         width: 17
-        height: 12
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -599,11 +625,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 177
-        y: 59
+        y: 60
         width: 17
-        height: 11
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -621,11 +647,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 7
-        y: 44
+        y: 45
         width: 17
-        height: 12
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -643,11 +669,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 42
-        y: 44
+        y: 45
         width: 15
-        height: 13
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -665,11 +691,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 77
-        y: 44
+        y: 45
         width: 13
         height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -687,11 +713,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 110
-        y: 44
+        y: 45
         width: 15
         height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -705,15 +731,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 34x15 Monster 1 with shadows_22
+      name: Attack5
       rect:
         serializedVersion: 2
-        x: 128
-        y: 1
-        width: 34
-        height: 43
+        x: 143
+        y: 30
+        width: 17
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -731,11 +757,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 143
-        y: 44
+        y: 45
         width: 17
-        height: 12
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -753,11 +779,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 177
-        y: 44
+        y: 45
         width: 17
-        height: 11
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -771,15 +797,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 34x15 Monster 1 with shadows_25
+      name: Attack1
       rect:
         serializedVersion: 2
         x: 7
-        y: 29
+        y: 30
         width: 17
-        height: 12
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -797,11 +823,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 7
-        y: 14
+        y: 15
         width: 17
-        height: 12
+        height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -821,9 +847,9 @@ TextureImporter:
         x: 7
         y: 0
         width: 17
-        height: 11
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -840,12 +866,12 @@ TextureImporter:
       name: 34x15 Monster 1 with shadows_28
       rect:
         serializedVersion: 2
-        x: 38
+        x: 36
         y: 0
-        width: 26
+        width: 27
         height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -863,11 +889,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 41
-        y: 14
+        y: 15
         width: 17
-        height: 12
+        height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -881,15 +907,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 34x15 Monster 1 with shadows_30
+      name: Attack2
       rect:
         serializedVersion: 2
         x: 42
-        y: 29
+        y: 30
         width: 15
-        height: 13
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -906,12 +932,12 @@ TextureImporter:
       name: 34x15 Monster 1 with shadows_31
       rect:
         serializedVersion: 2
-        x: 70
+        x: 69
         y: 0
-        width: 22
-        height: 13
+        width: 31
+        height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -925,15 +951,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 34x15 Monster 1 with shadows_32
+      name: Attack3
       rect:
         serializedVersion: 2
         x: 77
-        y: 29
+        y: 30
         width: 13
         height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -950,12 +976,12 @@ TextureImporter:
       name: 34x15 Monster 1 with shadows_33
       rect:
         serializedVersion: 2
-        x: 92
-        y: 1
+        x: 100
+        y: 0
         width: 35
         height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -969,15 +995,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 34x15 Monster 1 with shadows_34
+      name: Attack4
       rect:
         serializedVersion: 2
         x: 109
-        y: 29
+        y: 30
         width: 17
-        height: 13
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -991,15 +1017,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 34x15 Monster 1 with shadows_35
+      name: Attack7
       rect:
         serializedVersion: 2
-        x: 163
-        y: 1
-        width: 42
-        height: 42
+        x: 211
+        y: 30
+        width: 17
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1013,15 +1039,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 34x15 Monster 1 with shadows_36
+      name: Attack6
       rect:
         serializedVersion: 2
-        x: 211
-        y: 1
-        width: 55
-        height: 40
+        x: 177
+        y: 30
+        width: 17
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1034,11 +1060,99 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: 34x15 Monster 1 with shadows_37
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 0
+        width: 35
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc8e22c191500fc4f8c208a8316789c5
+      internalID: -125409110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 34x15 Monster 1 with shadows_38
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 0
+        width: 35
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b351f623b2a7a8b469be1d221bfb6359
+      internalID: 126462747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 34x15 Monster 1 with shadows_39
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 0
+        width: 34
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae7d5163628acc840a1f0a66a33b22f8
+      internalID: 1551242366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 34x15 Monster 1 with shadows_40
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 0
+        width: 35
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81bc87706104b334fa08f09834739c7c
+      internalID: -37894554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 2bf9f8672ded6a545bac10d3464aded7
     internalID: 0
     vertices: []
     indices: 
@@ -1063,28 +1177,33 @@ TextureImporter:
       34x15 Monster 1 with shadows_2: 3409195201881304599
       34x15 Monster 1 with shadows_20: -3421716890432009916
       34x15 Monster 1 with shadows_21: 3191593165673496874
-      34x15 Monster 1 with shadows_22: -3941185465272218294
       34x15 Monster 1 with shadows_23: -3360003193403667594
       34x15 Monster 1 with shadows_24: 2910033770027380680
-      34x15 Monster 1 with shadows_25: 8045247787610924683
       34x15 Monster 1 with shadows_26: 7147934416854661268
       34x15 Monster 1 with shadows_27: 88509621414255388
       34x15 Monster 1 with shadows_28: 4882580483056934618
       34x15 Monster 1 with shadows_29: -1316256352206809517
       34x15 Monster 1 with shadows_3: 721138838207126569
-      34x15 Monster 1 with shadows_30: 2372736482547227389
       34x15 Monster 1 with shadows_31: 1967541733969772632
-      34x15 Monster 1 with shadows_32: -2020249973458400056
       34x15 Monster 1 with shadows_33: -7914592836770557893
-      34x15 Monster 1 with shadows_34: -8677446645956725856
-      34x15 Monster 1 with shadows_35: -7240614583517781564
-      34x15 Monster 1 with shadows_36: -978492778218152714
+      34x15 Monster 1 with shadows_37: -125409110
+      34x15 Monster 1 with shadows_38: 126462747
+      34x15 Monster 1 with shadows_39: 1551242366
       34x15 Monster 1 with shadows_4: 8966968819475962434
+      34x15 Monster 1 with shadows_40: -37894554
+      34x15 Monster 1 with shadows_41: -575818916
       34x15 Monster 1 with shadows_5: 8453565618905132832
       34x15 Monster 1 with shadows_6: 6991437107287441087
       34x15 Monster 1 with shadows_7: 7607686963606744697
       34x15 Monster 1 with shadows_8: 8341809687944977380
       34x15 Monster 1 with shadows_9: 3890703823662695413
+      Attack1: 8045247787610924683
+      Attack2: 2372736482547227389
+      Attack3: -2020249973458400056
+      Attack4: -8677446645956725856
+      Attack5: -3941185465272218294
+      Attack6: -978492778218152714
+      Attack7: -7240614583517781564
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
