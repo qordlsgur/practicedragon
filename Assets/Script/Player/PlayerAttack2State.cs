@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class PlayerAttackState : State<Player>
+public class PlayerAttack2State : State<Player>
 {
-    public PlayerAttackState(Player owner, FSM<Player> fsm) : base(owner, fsm)
+    public PlayerAttack2State(Player owner, FSM<Player> fsm) : base(owner, fsm)
     {
     }
 

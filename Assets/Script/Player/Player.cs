@@ -12,7 +12,9 @@ public class Player : MonoBehaviour
     public PlayerRunState RunState => run;
     private PlayerRunState run;
     public PlayerAttackState AttackState => attack;
-    private PlayerAttackState attack;
+    private PlayerAttackState attack; 
+    public PlayerAttack2State Attack2State => attack2;
+    private PlayerAttack2State attack2;
     public PlayerJumpState JumpState => jump;
     private PlayerJumpState jump;
     public PlayerFallState FallState => fall;
@@ -50,6 +52,10 @@ public class Player : MonoBehaviour
 
     private float rayDistance = 0.1f;
 
+    private bool BufferInput = false;
+    private int ComboIndex = 0;
+    private int MaxCombo = 2;
+
     private void Awake()
     {
         moveSpeed = 10f;
@@ -63,6 +69,7 @@ public class Player : MonoBehaviour
         idle = new PlayerIdleState(this, fsm);
         run = new PlayerRunState(this, fsm);
         attack = new PlayerAttackState(this, fsm);
+        attack2 = new PlayerAttack2State(this, fsm);
         jump = new PlayerJumpState(this, fsm);
         fall = new PlayerFallState(this, fsm);
 
@@ -140,14 +147,21 @@ public class Player : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.X))
-            fsm.CurrentState.OnAttackInput();
-
+            ComboAttack();
 
         if (Input.GetKeyDown(KeyCode.C))
         {
             jumpTimer = 0.3f;
             fsm.CurrentState.OnJumpInput();
         }
+    }
+
+    private void ComboAttack()
+    {
+        BufferInput = true;
+
+        if (!IsAttack)
+            Attack();
     }
 
     public void Move(float x)
@@ -209,9 +223,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void NormalAttack1()
+    public void Attack()
     {
-        anim.SetBool("Attack1", true);
+        ComboIndex++;
+
+        if (ComboIndex > MaxCombo)
+            ComboIndex = 1;
+
+        anim.SetTrigger("Attack1");
         anim.SetBool("Run", false);
         IsAttack = true;
     }
@@ -221,11 +240,11 @@ public class Player : MonoBehaviour
         ChildCollider[0].enabled = true;
     }
 
-    public void NormalAttack1End()
+    public void AttackEnd()
     {
-        anim.SetBool("Attack1", false);
         IsAttack = false;
         ChildCollider[0].enabled = false;
         fsm.ReturnState();
     }
+
 }
