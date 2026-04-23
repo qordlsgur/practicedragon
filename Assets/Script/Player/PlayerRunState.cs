@@ -42,8 +42,7 @@ public class PlayerRunState : State<Player>
 
     public override void OnAttackInput()
     {
-        fsm.SaveStaet();
-        fsm.ChangeState(owner.AttackState);
+
     }
 
     public override void OnJumpInput()

@@ -40,12 +40,12 @@ public class PlayerIdleState : State<Player>
 
     public override void Exit()
     {
+        fsm.SaveStaet();
     }
 
     public override void OnAttackInput()
     {
-        fsm.SaveStaet();
-        fsm.ChangeState(owner.AttackState);
+
     }
     public override void OnJumpInput()
     {

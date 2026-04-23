@@ -12,9 +12,8 @@ public class Player : MonoBehaviour
     public PlayerRunState RunState => run;
     private PlayerRunState run;
     public PlayerAttackState AttackState => attack;
-    private PlayerAttackState attack; 
-    public PlayerAttack2State Attack2State => attack2;
-    private PlayerAttack2State attack2;
+    private PlayerAttackState attack;
+
     public PlayerJumpState JumpState => jump;
     private PlayerJumpState jump;
     public PlayerFallState FallState => fall;
@@ -53,8 +52,11 @@ public class Player : MonoBehaviour
     private float rayDistance = 0.1f;
 
     private bool BufferInput = false;
+    private bool InputControl = false;
     private int ComboIndex = 0;
     private int MaxCombo = 2;
+
+    AnimatorStateInfo AnimInfo;
 
     private void Awake()
     {
@@ -69,7 +71,6 @@ public class Player : MonoBehaviour
         idle = new PlayerIdleState(this, fsm);
         run = new PlayerRunState(this, fsm);
         attack = new PlayerAttackState(this, fsm);
-        attack2 = new PlayerAttack2State(this, fsm);
         jump = new PlayerJumpState(this, fsm);
         fall = new PlayerFallState(this, fsm);
 
@@ -97,6 +98,15 @@ public class Player : MonoBehaviour
 
         if (jumpTimer > 0)
             jumpTimer -= Time.deltaTime;
+
+        if(IsAttack)
+        {
+            AnimInfo = anim.GetCurrentAnimatorStateInfo(0);
+
+            if(AnimInfo.normalizedTime >= 0.9f)
+                AttackEnd();
+        }
+
     }
 
     private void LateUpdate()
@@ -147,7 +157,7 @@ public class Player : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.X))
-            ComboAttack();
+            Attack();
 
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -156,12 +166,68 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void Attack()
+    {
+        if (!IsAttack)
+        {
+            StartAttack();
+            return;
+        }
+
+        if (InputControl)
+        {
+            BufferInput = true;
+            InputControl = false;
+        }
+    }
+
+    public void StartAttack()
+    {
+        BufferInput = false;
+        InputControl = false;
+        ComboIndex++;
+
+        if (ComboIndex > MaxCombo)
+            ComboIndex = 1;
+
+        IsAttack = true;
+
+        fsm.ChangeState(attack);
+        AttackAnum();
+    }
+
+    public void AttackAnum()
+    {
+        anim.Play("Attack" + ComboIndex);
+    }
+
     private void ComboAttack()
     {
-        BufferInput = true;
+        InputControl = true;
+    }
 
-        if (!IsAttack)
-            Attack();
+    public void AttackEnd()
+    {
+        if (BufferInput)
+        {
+            StartAttack();
+        }
+        else
+        {
+            IsAttack = false;
+            ComboIndex = 0;
+            fsm.ReturnState();
+        }
+    }
+
+    public void AttackColliderOn()
+    {
+        ChildCollider[0].enabled = true;
+    }
+
+    public void AttackColliderOff()
+    {
+        ChildCollider[0].enabled = false;
     }
 
     public void Move(float x)
@@ -195,6 +261,7 @@ public class Player : MonoBehaviour
 
     public void IdleEnter()
     {
+        anim.Play("Idle");
         anim.SetBool("Run", false);
         anim.SetBool("Jump", false);
         anim.SetBool("Fall", false);
@@ -221,30 +288,6 @@ public class Player : MonoBehaviour
             anim.SetBool("Jump", false);
             IsJump = false;
         }
-    }
-
-    public void Attack()
-    {
-        ComboIndex++;
-
-        if (ComboIndex > MaxCombo)
-            ComboIndex = 1;
-
-        anim.SetTrigger("Attack1");
-        anim.SetBool("Run", false);
-        IsAttack = true;
-    }
-
-    public void AttackCollider()
-    {
-        ChildCollider[0].enabled = true;
-    }
-
-    public void AttackEnd()
-    {
-        IsAttack = false;
-        ChildCollider[0].enabled = false;
-        fsm.ReturnState();
     }
 
 }

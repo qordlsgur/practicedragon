@@ -27,7 +27,16 @@ public class FSM<T>
         if (currentState == null)
             return;
 
+        if (currentState == saveState)
+            return;
+
         saveState = currentState;
+    }
+
+    public void SaveReturn()
+    {
+        if (saveState != null)
+            saveState = null;
     }
 
     public void Init(State<T> startState)
@@ -61,9 +70,9 @@ public class FSM<T>
         if (currentState == saveState)
             return;
 
-        saveState?.Exit();
-
         currentState = saveState;
+
+        saveState?.Exit();
 
         currentState.Enter();
     }
