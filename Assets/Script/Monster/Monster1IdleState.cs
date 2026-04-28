@@ -27,7 +27,7 @@ public class MonsterIdleState : State<Monster1>
     {
         idleTimer += Time.deltaTime;
 
-        var state = owner.Targeting();
+        var state = owner.currentState;
 
         if (state == Monster1.MonsterState.Attack)
         {

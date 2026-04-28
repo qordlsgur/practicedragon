@@ -5,6 +5,7 @@ public class Monster1RunState : State<Monster1>
 {
     float RunTimer = 0f;
     float ResetTimer = 0f;
+    RunType runType;
     public Monster1RunState(Monster1 owner, FSM<Monster1> fsm) : base(owner, fsm)
     {
     }
@@ -18,20 +19,28 @@ public class Monster1RunState : State<Monster1>
 
     public override void FSMFixedUpdate()
     {
-        owner.Flip(owner.MoveDir);
-        owner.Move(owner.MoveDir);
+        if(runType == Monster1.RunType.Patrol)
+        {
+            owner.Flip(owner.MoveDir);
+            owner.Move(owner.MoveDir);
+        }
+        else
+        {
+            owner.Flip(owner.TargetDir);
+            owner.Move(owner.TargetDir);
+        }
     }
 
     public override void FSMUpdate()
     {
         RunTimer += Time.deltaTime;
 
-        var runType = owner.currentRunType;
-        var state = owner.Targeting();
+        runType = owner.currentRunType;
+        var state = owner.currentState;
 
         if(state == Monster1.MonsterState.Attack)
         {
-
+            fsm.ChangeState(owner.AattackState);
         }
         else if(state == Monster1.MonsterState.Run)
         {
@@ -48,11 +57,14 @@ public class Monster1RunState : State<Monster1>
             }
             else if (runType == Monster1.RunType.Run)
             {
-
+                if (!owner.IsGrounding)
+                {
+                    owner.Stop();
+                }
             }
         }
-        else
-            fsm.ChangeState(owner.IdleState);
+        //else
+        //    fsm.ChangeState(owner.IdleState);
     }
 
     public override void Exit()

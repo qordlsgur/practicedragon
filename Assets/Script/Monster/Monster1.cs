@@ -54,6 +54,8 @@ public class Monster1 : MonoBehaviour
 
     public bool Dir = false;
     public float MoveDir = 0;
+    public float TargetDir = 0;
+
 
     public bool IsTargeting => IsTarget;
     private bool IsTarget = false;
@@ -112,21 +114,30 @@ public class Monster1 : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, AttackRange);
     }
 
-    public MonsterState Targeting()
+    public void Targeting()
     {
         TargetDistance = Player.position - transform.position;
         float distSP = TargetDistance.sqrMagnitude;
 
-        if (distSP > DetectRange * DetectRange ||
-            Mathf.Abs(TargetDistance.y) > HeightRange)
-            return MonsterState.Idle;
+        if (distSP < DetectRange * DetectRange ||
+            Mathf.Abs(TargetDistance.y) < HeightRange)
+        {
+            if (distSP > AttackRange * AttackRange)
+            {
+                TargetDir = (Player.position.x > transform.position.x) ? 1 : -1;
+                currentRunType = RunType.Run;
 
-        else if (distSP > AttackRange * AttackRange)
-            return MonsterState.Run;
-
-        else
-            return MonsterState.Attack;
+                currentState = MonsterState.Run;
+                return;
+            }
+            else
+            {
+                currentState = MonsterState.Attack;
+                return;
+            }
+        }
     }
+
 
     public void Move(float x)
     {
